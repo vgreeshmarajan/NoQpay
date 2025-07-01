@@ -1,15 +1,19 @@
 {
   "name": "noqapp",
   "type": "web",
-  "buildCommand": "npm install && npm run build",
-  "startCommand": "expo start --no-dev --minify --offline",
+  "buildCommand": "npm install && expo start:web --port 8082",
+  "startCommand": "npx expo start --no-dev --minify --offline",
   "env": {
     "NODE_ENV": "production",
-    "EXPO_PUBLIC_API_URL": "${EXPO_PUBLIC_API_URL}",
-    "EXPO_PUBLIC_API_KEY": "${EXPO_PUBLIC_API_KEY}"
+    "EXPO_PUBLIC_APPWRITE_ENDPOINT": "${EXPO_PUBLIC_APPWRITE_ENDPOINT}",
+    "EXPO_PUBLIC_APPWRITE_PROJECT_ID": "${EXPO_PUBLIC_APPWRITE_PROJECT_ID}",
+    "EXPO_PUBLIC_APPWRITE_PACKAGE_NAME": "${EXPO_PUBLIC_APPWRITE_PACKAGE_NAME}",
+    "EXPO_PUBLIC_APPWRITE_DATABASE_ID": "${EXPO_PUBLIC_APPWRITE_DATABASE_ID}",
+    "EXPO_PUBLIC_APPWRITE_COLLECTION_ID": "${EXPO_PUBLIC_APPWRITE_COLLECTION_ID}",
+    "EXPO_PUBLIC_APPWRITE_ORDERS_COLLECTION_ID": "${EXPO_PUBLIC_APPWRITE_ORDERS_COLLECTION_ID}"
   },
   "web": {
-    "port": 80,
+    "port": 8082,
     "buildCommand": "npm run build",
     "startCommand": "npx expo start --no-dev --minify",
     "env": {
