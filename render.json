@@ -1,18 +1,19 @@
 {
   "name": "noqapp",
   "type": "web",
-  "buildCommand": "npm install",
-  "startCommand": "expo start --no-dev --minify",
+  "buildCommand": "npm install && npm run build",
+  "startCommand": "expo start --no-dev --minify --offline",
   "env": {
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "EXPO_PUBLIC_API_URL": "${EXPO_PUBLIC_API_URL}",
+    "EXPO_PUBLIC_API_KEY": "${EXPO_PUBLIC_API_KEY}"
   },
   "web": {
     "port": 80,
     "buildCommand": "npm run build",
-    "startCommand": "expo start --no-dev --minify",
+    "startCommand": "npx expo start --no-dev --minify",
     "env": {
-      "EXPO_PUBLIC_API_URL": "${EXPO_PUBLIC_API_URL}",
-      "EXPO_PUBLIC_API_KEY": "${EXPO_PUBLIC_API_KEY}"
+      "NODE_ENV": "production"
     }
   }
 }
