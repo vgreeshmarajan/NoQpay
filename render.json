@@ -2,7 +2,7 @@
   "name": "noqapp",
   "type": "web",
   "buildCommand": "npm install && expo start:web --port 8082",
-  "startCommand": "npx expo start --no-dev --minify --offline",
+  "startCommand": "npx expo start:web --port 8082",
   "env": {
     "NODE_ENV": "production",
     "EXPO_PUBLIC_APPWRITE_ENDPOINT": "${EXPO_PUBLIC_APPWRITE_ENDPOINT}",
@@ -14,8 +14,8 @@
   },
   "web": {
     "port": 8082,
-    "buildCommand": "npm run build",
-    "startCommand": "npx expo start --no-dev --minify",
+    "buildCommand": "expo export",
+    "startCommand": "npx serve -s dist",
     "env": {
       "NODE_ENV": "production"
     }

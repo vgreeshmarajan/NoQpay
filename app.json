@@ -8,11 +8,7 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "sdkVersion": "53.0.0",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["web"],
     "plugins": [
       "expo-router",
       [
@@ -25,9 +21,14 @@
       ]
     ],
     "extra": {
+      "expo": {
+        "scheme": "noqapp",
+        "router": {
+          "origin": "https://your-domain.onrender.com"
+        }
+      },
       "APPWRITE_ENDPOINT": "https://cloud.appwrite.io/v1",
       "APPWRITE_PROJECT_ID": "67bc791e003354d76540",
-      "router": {
         "origin": false
       },
       "eas": {
