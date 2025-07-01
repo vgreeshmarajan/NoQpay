@@ -1,39 +1,56 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { useEffect, useState } from 'react';
+import { Slot, Stack } from 'expo-router';
+import { account } from '@/config/appwriteConfig';
+import { View, ActivityIndicator } from 'react-native';
+import { CartProvider } from '../context/CartContext';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+export default function Layout() {
+  const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+    let isMounted = true;
 
-  if (!loaded) {
-    return null;
+    const checkSession = async () => {
+      try {
+        await account.get();
+        if (isMounted) setIsAuthenticated(true);
+      } catch {
+        if (isMounted) setIsAuthenticated(false);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    checkSession();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#1D3D47" />
+      </View>
+    );
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <CartProvider>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+        <Stack.Screen name="index" options={{ title: "Home", headerShown: false }} />
+        <Stack.Screen name="scanner" options={{ title: "Scanner", headerShown: false }} />
+        <Stack.Screen name="cart" options={{ title: "Cart", headerShown: false }} />
+        <Stack.Screen name="order" options={{ title: "Order", headerShown: false }} />
+        <Stack.Screen name="login" options={{ title: "Login", headerShown: false }} />
+        <Stack.Screen name="signup" options={{ title: "Signup", headerShown: false }} />
+        <Stack.Screen name="payment" options={{ title: "Payment", headerShown: false }} />
+        <Stack.Screen name="profile" options={{ title: "Profile", headerShown: false }} />
+        
+        {/* Add other screens if needed */}
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    </CartProvider>
   );
 }
